@@ -1,6 +1,7 @@
 package al420445.airport;
 
 import jakarta.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -8,8 +9,8 @@ import jakarta.persistence.*;
 public abstract class Ticket {
 
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String number;
 
@@ -17,20 +18,18 @@ public abstract class Ticket {
     @JoinColumn(name = "PASSENGER_ID")
     private Passenger passenger;
 
-    public Ticket(int id, String number) {
-        this.id = id;
+    public Ticket(String number) {
         this.number = number;
     }
 
     public Ticket() {
-
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -48,5 +47,18 @@ public abstract class Ticket {
 
     public void setPassenger(Passenger passenger) {
         this.passenger = passenger;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return id != null && Objects.equals(id, ticket.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }

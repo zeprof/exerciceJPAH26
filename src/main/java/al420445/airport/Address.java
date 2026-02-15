@@ -1,17 +1,27 @@
 package al420445.airport;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Embeddable;
 
 @Embeddable
 public class Address {
     private String street;
     private String city;
     private String province;
-    private String codePostal;
+    private String postalCode;
 
-    @Transient
-    private String menFouBinRaide;
+    public Address() {
+    }
+
+    public Address(String street, String city, String province, String postalCode) {
+        this.street = street;
+        this.city = city;
+        this.province = province;
+        this.postalCode = postalCode;
+    }
+
+    public String getStreet() {
+        return street;
+    }
 
     public void setStreet(String street) {
         this.street = street;
@@ -33,12 +43,11 @@ public class Address {
         this.province = province;
     }
 
-    public String getCodePostal() {
-        return codePostal;
+    public String getPostalCode() {
+        return postalCode;
     }
 
-    public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
-
 }

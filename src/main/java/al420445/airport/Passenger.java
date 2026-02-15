@@ -4,15 +4,16 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name="PASSENGERS")
+@Table(name = "PASSENGERS")
 public class Passenger {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private int id;
+    private Long id;
 
     @Column(name = "NAME", unique = true)
     private String name;
@@ -34,11 +35,11 @@ public class Passenger {
     public Passenger() {
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -73,6 +74,19 @@ public class Passenger {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Passenger passenger = (Passenger) o;
+        return id != null && Objects.equals(id, passenger.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 
     @Override
