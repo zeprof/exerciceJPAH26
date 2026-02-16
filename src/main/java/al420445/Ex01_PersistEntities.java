@@ -37,6 +37,10 @@ public class Ex01_PersistEntities {
         // Keep JVM alive so the H2 TCP server remains accessible
         Thread.currentThread().join();
     }
+    public static Result insertDataInDb() {
+        var emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
+        return insertDataInDb(emf);
+    }
 
     public static Result insertDataInDb(EntityManagerFactory emf) {
         var em = emf.createEntityManager();

@@ -6,6 +6,8 @@ import al420445.airport.Passenger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 /**
@@ -14,7 +16,8 @@ import java.time.LocalDate;
  * thanks to CascadeType.ALL on Passenger.tickets.
  */
 public class Ex07_CascadePersist {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, InterruptedException {
+        TcpServer.createTcpServer();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
         Ex01_PersistEntities.insertDataInDb(emf);
 
@@ -30,5 +33,7 @@ public class Ex07_CascadePersist {
         em.getTransaction().commit();
         em.close();
         emf.close();
+
+        Thread.currentThread().join();
     }
 }

@@ -6,13 +6,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
+import java.sql.SQLException;
+
 /**
  * Ex02: Demonstrates JPA dirty checking.
  * Modifying a managed entity inside a transaction automatically generates an UPDATE.
  */
 public class Ex02_DirtyChecking {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, SQLException {
+        TcpServer.createTcpServer();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
+        Ex01_PersistEntities.insertDataInDb(emf);
+
         EntityManager em = emf.createEntityManager();
 
         em.getTransaction().begin();
@@ -26,5 +31,7 @@ public class Ex02_DirtyChecking {
 
         em.close();
         emf.close();
+
+        Thread.currentThread().join();
     }
 }
