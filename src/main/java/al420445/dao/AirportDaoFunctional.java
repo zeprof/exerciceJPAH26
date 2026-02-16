@@ -7,7 +7,15 @@ import jakarta.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
-public class AirportDaoImpl implements AirportDao {
+/**
+ * Alternative implementation of AirportDao using the Functional Interface approach.
+ * This version uses TransactionExecutor with lambda expressions.
+ *
+ * Compare this with AirportDaoImpl to see the difference between:
+ * - Functional Interface approach (this class)
+ * - Template Method pattern (AirportDaoImpl)
+ */
+public class AirportDaoFunctional implements AirportDao {
 
     // Read-only: no transaction needed for simple SELECT queries
     public List<Airport> getAirports() {
@@ -20,18 +28,15 @@ public class AirportDaoImpl implements AirportDao {
     }
 
     public void addPassenger(String name, int airportId) {
-        new TransactionalDao<Void>() {
-            @Override
-            protected Void executeInTransaction(EntityManager em) {
-                Airport airport = em.find(Airport.class, (long) airportId);
-                if (airport == null) return null;
+        TransactionExecutor.executeInTransaction(em -> {
+            Airport airport = em.find(Airport.class, (long) airportId);
+            if (airport == null) return null;
 
-                Passenger newPassenger = new Passenger(name);
-                airport.addPassenger(newPassenger);
-                em.persist(newPassenger);
-                return null;
-            }
-        }.executeInTransaction();
+            Passenger newPassenger = new Passenger(name);
+            airport.addPassenger(newPassenger);
+            em.persist(newPassenger);
+            return null;
+        });
     }
 
     @Override
@@ -48,3 +53,4 @@ public class AirportDaoImpl implements AirportDao {
         }
     }
 }
+

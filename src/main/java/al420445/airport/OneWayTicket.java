@@ -5,7 +5,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("O")
+@DiscriminatorValue("OneWay")
 public class OneWayTicket extends Ticket {
     private LocalDate latestDepartureDate;
 

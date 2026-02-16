@@ -6,7 +6,7 @@ import jakarta.persistence.Entity;
 import java.time.LocalDate;
 
 @Entity
-@DiscriminatorValue("R")
+@DiscriminatorValue("Return")
 public class ReturnTicket extends Ticket {
     private LocalDate latestReturnDate;
 

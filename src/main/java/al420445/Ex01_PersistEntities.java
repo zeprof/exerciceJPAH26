@@ -15,12 +15,14 @@ public class Ex01_PersistEntities {
 
     public static void main(String[] args) throws InterruptedException, SQLException {
         // Start H2 TCP server so you can inspect the DB with a SQL client
+        // Configuration
         TcpServer.createTcpServer();
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
 
         insertDataInDb(emf);
 
+        // Utilisation
         var em = emf.createEntityManager();
         em.getTransaction().begin();
 

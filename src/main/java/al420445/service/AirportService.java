@@ -3,6 +3,7 @@ package al420445.service;
 import al420445.airport.Airport;
 import al420445.airport.Passenger;
 import al420445.dao.AirportDao;
+import al420445.dao.AirportDaoFactory;
 
 import java.util.List;
 
@@ -10,8 +11,25 @@ public class AirportService {
 
     private final AirportDao airportDao;
 
+    /**
+     * Constructor accepting a specific DAO implementation
+     */
     public AirportService(AirportDao airportDao) {
         this.airportDao = airportDao;
+    }
+
+    /**
+     * Default constructor using the factory's default strategy
+     */
+    public AirportService() {
+        this.airportDao = AirportDaoFactory.create();
+    }
+
+    /**
+     * Constructor allowing choice of implementation strategy
+     */
+    public AirportService(AirportDaoFactory.Strategy strategy) {
+        this.airportDao = AirportDaoFactory.create(strategy);
     }
 
     public List<Airport> getAirports() {
