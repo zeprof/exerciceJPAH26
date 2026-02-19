@@ -1,7 +1,7 @@
 package al420445;
 
-import al420445.dao.AirportDao;
-import al420445.dao.AirportDaoImpl;
+import al420445.dao.base.AirportDao;
+import al420445.dao.base.AirportDaoImpl;
 import al420445.service.AirportService;
 
 import java.sql.SQLException;

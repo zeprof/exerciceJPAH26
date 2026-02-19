@@ -1,8 +1,8 @@
 package al420445;
 
-import al420445.dao.AirportDao;
-import al420445.dao.AirportDaoFactory;
-import al420445.dao.AirportDaoFactory.Strategy;
+import al420445.dao.base.AirportDao;
+import al420445.dao.base.AirportDaoFactory;
+import al420445.dao.base.AirportDaoFactory.Strategy;
 import al420445.service.AirportService;
 
 /**
@@ -49,6 +49,8 @@ public class Ex10_CompareTransactionApproaches {
 
         System.out.println("   Creating service with Template Method DAO...");
         System.out.println("   Airports: " + service.getAirports());
+        System.out.println("   Add Passenger:");
+        service.addPassenger("template method passenger", 1);
         System.out.println("   ✓ Template Method approach working!");
     }
 
@@ -58,6 +60,8 @@ public class Ex10_CompareTransactionApproaches {
 
         System.out.println("   Creating service with Functional DAO...");
         System.out.println("   Airports: " + service.getAirports());
+        System.out.println("   Add Passenger:");
+        service.addPassenger("functional passenger", 1);
         System.out.println("   ✓ Functional Interface approach working!");
     }
 

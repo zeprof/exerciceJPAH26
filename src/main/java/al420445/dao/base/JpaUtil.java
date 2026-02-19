@@ -1,4 +1,4 @@
-package al420445.dao;
+package al420445.dao.base;
 
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;

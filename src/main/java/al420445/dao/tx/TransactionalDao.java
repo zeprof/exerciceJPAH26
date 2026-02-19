@@ -1,4 +1,6 @@
-package al420445.dao;
+package al420445.dao.tx;
+
+import al420445.dao.base.JpaUtil;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -19,7 +21,7 @@ public abstract class TransactionalDao<T> {
      * Subclasses call this method and implement executeInTransaction()
      * to define what should happen within the transaction.
      */
-    protected final T executeInTransaction() {
+    public final T executeInTransaction() {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {

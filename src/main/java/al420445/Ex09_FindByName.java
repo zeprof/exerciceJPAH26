@@ -1,8 +1,8 @@
 package al420445;
 
 import al420445.airport.Passenger;
-import al420445.dao.AirportDaoImpl;
-import al420445.dao.JpaUtil;
+import al420445.dao.base.AirportDaoImpl;
+import al420445.dao.base.JpaUtil;
 import al420445.service.AirportService;
 
 import java.util.List;

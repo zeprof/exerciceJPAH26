@@ -1,4 +1,6 @@
-package al420445.dao;
+package al420445.dao.base;
+
+import al420445.dao.tx.TransactionalDao;
 
 import al420445.airport.Airport;
 import al420445.airport.Passenger;
@@ -7,15 +9,7 @@ import jakarta.persistence.*;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Alternative implementation of AirportDao using the Functional Interface approach.
- * This version uses TransactionExecutor with lambda expressions.
- *
- * Compare this with AirportDaoImpl to see the difference between:
- * - Functional Interface approach (this class)
- * - Template Method pattern (AirportDaoImpl)
- */
-public class AirportDaoFunctional implements AirportDao {
+public class AirportDaoImpl implements AirportDao {
 
     // Read-only: no transaction needed for simple SELECT queries
     public List<Airport> getAirports() {
@@ -28,15 +22,18 @@ public class AirportDaoFunctional implements AirportDao {
     }
 
     public void addPassenger(String name, int airportId) {
-        TransactionExecutor.executeInTransaction(em -> {
-            Airport airport = em.find(Airport.class, (long) airportId);
-            if (airport == null) return null;
+        new TransactionalDao<Void>() {
+            @Override
+            protected Void executeInTransaction(EntityManager em) {
+                Airport airport = em.find(Airport.class, (long) airportId);
+                if (airport == null) return null;
 
-            Passenger newPassenger = new Passenger(name);
-            airport.addPassenger(newPassenger);
-            em.persist(newPassenger);
-            return null;
-        });
+                Passenger newPassenger = new Passenger(name);
+                airport.addPassenger(newPassenger);
+                em.persist(newPassenger);
+                return null;
+            }
+        }.executeInTransaction();
     }
 
     @Override
@@ -53,4 +50,3 @@ public class AirportDaoFunctional implements AirportDao {
         }
     }
 }
-

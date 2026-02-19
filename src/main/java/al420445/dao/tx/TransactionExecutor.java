@@ -1,4 +1,6 @@
-package al420445.dao;
+package al420445.dao.tx;
+
+import al420445.dao.base.JpaUtil;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

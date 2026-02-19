@@ -1,4 +1,4 @@
-package al420445.dao;
+package al420445.dao.base;
 
 import al420445.airport.Airport;
 import al420445.airport.Passenger;
