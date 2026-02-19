@@ -14,6 +14,8 @@ import al420445.service.AirportService;
 public class Ex10_CompareTransactionApproaches {
 
     public static void main(String[] args) {
+        Ex01_PersistEntities.insertDataInDb();
+
         System.out.println("=== Comparing Transaction Management Approaches ===\n");
 
         // Approach 1: Template Method Pattern

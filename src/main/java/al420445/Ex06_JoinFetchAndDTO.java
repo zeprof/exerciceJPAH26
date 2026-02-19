@@ -42,9 +42,9 @@ public class Ex06_JoinFetchAndDTO {
 
         // DTO projection: aggregate query returning a custom record
         var queryStr = """
-                select new al420445.airport.PassengerTicketCountDTO(count(t), t.passenger) 
+                select new al420445.airport.PassengerTicketCountDTO(count(t), t.passengerXXXX) 
                 from Ticket t 
-                group by t.passenger
+                group by t.passengerXXXX
         """;
         final List<PassengerTicketCountDTO> ticketCounts = em.createQuery(
                 queryStr, PassengerTicketCountDTO.class).getResultList();

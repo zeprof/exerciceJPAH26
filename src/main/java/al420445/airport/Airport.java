@@ -25,7 +25,7 @@ public class Airport {
           this.name = name;
      }
 
-     public Airport() {
+     protected Airport() {
      }
 
      public Long getId() {
