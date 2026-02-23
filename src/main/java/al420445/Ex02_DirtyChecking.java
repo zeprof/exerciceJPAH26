@@ -25,12 +25,22 @@ public class Ex02_DirtyChecking {
         final Passenger p2 = em.find(Passenger.class, 1L);
         System.out.println(p2);
         // Dirty checking: this change is automatically persisted at commit
-        p2.setName("Manolo");
+        //p2.setName("Manolo");
 
         em.getTransaction().commit();
 
         em.close();
-        emf.close();
+        //emf.close();
+
+        p2.setName("Manolo");
+
+        em = emf.createEntityManager();
+        em.getTransaction().begin();
+        em.merge(p2);
+        em.getTransaction().commit();
+        em.close();
+
+        // Keep JVM alive so the H2 TCP server remains accessible
 
         Thread.currentThread().join();
     }

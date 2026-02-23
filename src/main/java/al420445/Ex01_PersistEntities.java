@@ -49,9 +49,9 @@ public class Ex01_PersistEntities {
         Airport airport = new Airport("Henri Coanda");
 
         Passenger passenger1 = new Passenger("Moukaila Smith");
+        airport.addPassenger(passenger1);
         Address address = new Address("street", "city", "province", "H1A 1A1");
         passenger1.setAddress(address);
-        airport.addPassenger(passenger1);
 
         OneWayTicket ticket1 = new OneWayTicket();
         ticket1.setNumber("AA1234");
@@ -74,6 +74,7 @@ public class Ex01_PersistEntities {
         em.persist(airport);
         em.persist(passenger1);
         em.persist(passenger2);
+
         em.getTransaction().commit();
         em.close();
 
