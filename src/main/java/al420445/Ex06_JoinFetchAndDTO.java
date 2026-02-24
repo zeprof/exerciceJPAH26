@@ -45,7 +45,7 @@ import java.util.List;
  * 24. SIZE function on a collection
  */
 public class Ex06_JoinFetchAndDTO {
-    public static void main(String[] args) throws InterruptedException, SQLException {
+    static void main(String[] args) throws InterruptedException, SQLException {
         TcpServer.createTcpServer();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hibernate2.ex1");
         Ex01_PersistEntities.insertDataInDb(emf);
@@ -59,7 +59,9 @@ public class Ex06_JoinFetchAndDTO {
         System.out.println("=== 1. Implicit join ===");
         final TypedQuery<Passenger> pass =
                 em.createQuery(
-            "select p from Passenger p where lower(p.airport.name) like 'henri%'", Passenger.class);
+                        """
+                                select p from Passenger p
+                                where lower(p.airport.name) like 'henri%'""", Passenger.class);
         final List<Passenger> passengers = pass.getResultList();
         System.out.println(passengers);
 
@@ -69,7 +71,12 @@ public class Ex06_JoinFetchAndDTO {
         System.out.println("\n=== 2. JOIN FETCH ===");
         final TypedQuery<Airport> airportQuery =
                 em.createQuery(
-            "select a from Airport a join fetch a.passengers where lower(a.name) like 'henri%'", Airport.class);
+            """
+                    select a from Airport a
+                    left join fetch a.passengers
+                    where lower(a.name) like 'henri%'
+                    """
+                    , Airport.class);
         final Airport airport = airportQuery.getSingleResult();
         System.out.println(airport);
 
@@ -78,8 +85,8 @@ public class Ex06_JoinFetchAndDTO {
         // ──────────────────────────────────────────────
         System.out.println("\n=== 3. DTO projection ===");
         var queryStr = """
-                select new al420445.airport.PassengerTicketCountDTO(count(t), t.passenger) 
-                from Ticket t 
+                select new al420445.airport.PassengerTicketCountDTO(count(t), t.passenger)
+                from Ticket t
                 group by t.passenger
         """;
         final List<PassengerTicketCountDTO> ticketCounts = em.createQuery(
